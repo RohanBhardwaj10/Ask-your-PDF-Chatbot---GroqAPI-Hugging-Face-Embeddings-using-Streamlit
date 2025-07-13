@@ -4,7 +4,7 @@ langchain-community
 langchain-core
 langchain-openai
 langchain-groq
-langchain-chroma
+faiss-cpu
 langchain-huggingface
 chromadb
 python-dotenv
