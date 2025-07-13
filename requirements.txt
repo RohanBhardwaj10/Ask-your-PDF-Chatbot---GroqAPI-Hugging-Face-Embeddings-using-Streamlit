@@ -9,3 +9,5 @@ langchain-huggingface
 chromadb
 python-dotenv
 PyPDF2
+sentence-transformers
+
