@@ -2,7 +2,7 @@
 import streamlit as st
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -31,11 +31,8 @@ api_key=st.text_input("Enter your Groq API key:",type="password")
 if api_key:
     llm=ChatGroq(groq_api_key=api_key,model_name="Gemma2-9b-It")
 
-    ## chat interface
 
     session_id=st.text_input("Session ID",value="default_session")
-    ## statefully manage chat history
-
     if 'store' not in st.session_state:
         st.session_state.store={}
 
@@ -56,7 +53,7 @@ if api_key:
     # Split and create embeddings for the documents
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         splits = text_splitter.split_documents(documents)
-        vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
+        vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
         retriever = vectorstore.as_retriever()    
 
         contextualize_q_system_prompt=(
