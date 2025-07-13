@@ -1,0 +1,9 @@
+langchain
+python-dotenv
+streamlit
+ipykernel
+langchain-community
+langchain-text-splitters
+langchain-openai
+pandas
+openai
